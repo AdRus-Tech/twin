@@ -1,7 +1,5 @@
 # Цифровой двойник автомобильного завода (MVP)
 
-[![CI](https://github.com/brunofernandes4/twin/actions/workflows/ci.yml/badge.svg)](https://github.com/brunofernandes4/twin/actions/workflows/ci.yml)
-
 <img src="docs/img/adrus-logo.png" alt="AdRus Technology" height="48">
 
 Разработка: **AdRus Technology**.
