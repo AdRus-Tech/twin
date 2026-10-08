@@ -1,0 +1,189 @@
+{
+  "meta": {
+    "title": "Демонстрационные показатели производственной линии",
+    "origin": "Тестовый набор агрегированных показателей. Происхождение чисел не подтверждено: набор может быть синтетическим или упрощённым.",
+    "aggregation_period": null,
+    "aggregation_period_note": "Период агрегации строк не указан: время работы около 8 ч при двух сменах по 8 ч."
+  },
+  "chain": [
+    {
+      "id": "parts_store",
+      "name": "Склад комплектующих",
+      "section": null
+    },
+    {
+      "id": "welding",
+      "name": "Сварка",
+      "section": "Сварка",
+      "line": "Сварка-1"
+    },
+    {
+      "id": "painting",
+      "name": "Окраска",
+      "section": "Окраска",
+      "line": "Окраска-1"
+    },
+    {
+      "id": "assembly",
+      "name": "Сборка",
+      "section": "Сборка",
+      "line": "Сборка-1"
+    },
+    {
+      "id": "quality",
+      "name": "Контроль качества",
+      "section": null
+    },
+    {
+      "id": "fg_store",
+      "name": "Склад готовой продукции",
+      "section": null
+    }
+  ],
+  "line_runs": [
+    {
+      "date": "2026-10-01",
+      "line": "Сварка-1",
+      "plan": 120,
+      "fact": 118,
+      "hours": 7.8,
+      "load_pct": 98
+    },
+    {
+      "date": "2026-10-01",
+      "line": "Окраска-1",
+      "plan": 120,
+      "fact": 115,
+      "hours": 7.5,
+      "load_pct": 94
+    },
+    {
+      "date": "2026-10-01",
+      "line": "Сборка-1",
+      "plan": 120,
+      "fact": 121,
+      "hours": 8.0,
+      "load_pct": 100
+    },
+    {
+      "date": "2026-10-02",
+      "line": "Сварка-1",
+      "plan": 120,
+      "fact": 111,
+      "hours": 7.2,
+      "load_pct": 91
+    },
+    {
+      "date": "2026-10-02",
+      "line": "Окраска-1",
+      "plan": 120,
+      "fact": 116,
+      "hours": 7.7,
+      "load_pct": 96
+    },
+    {
+      "date": "2026-10-02",
+      "line": "Сборка-1",
+      "plan": 120,
+      "fact": 119,
+      "hours": 7.9,
+      "load_pct": 99
+    }
+  ],
+  "downtimes": [
+    {
+      "date": "2026-10-01",
+      "section": "Сварка",
+      "equipment": "ABB-01",
+      "reason": "Ошибка датчика",
+      "minutes": 25
+    },
+    {
+      "date": "2026-10-01",
+      "section": "Окраска",
+      "equipment": "Камера-02",
+      "reason": "Замена фильтра",
+      "minutes": 40
+    },
+    {
+      "date": "2026-10-02",
+      "section": "Сборка",
+      "equipment": "Конвейер-03",
+      "reason": "Обрыв цепи",
+      "minutes": 55
+    },
+    {
+      "date": "2026-10-02",
+      "section": "Сварка",
+      "equipment": "ABB-04",
+      "reason": "Плановое ТО",
+      "minutes": 30
+    }
+  ],
+  "monthly_plan": [
+    {
+      "model": "Chevrolet Onix",
+      "units": 2500
+    },
+    {
+      "model": "Chevrolet Cobalt",
+      "units": 1800
+    },
+    {
+      "model": "JAC J7",
+      "units": 500
+    }
+  ],
+  "quality": [
+    {
+      "date": "2026-10-01",
+      "section": "Сварка",
+      "released": 118,
+      "defects": 2,
+      "stated_defect_pct": 1.7
+    },
+    {
+      "date": "2026-10-01",
+      "section": "Окраска",
+      "released": 115,
+      "defects": 4,
+      "stated_defect_pct": 3.5
+    },
+    {
+      "date": "2026-10-01",
+      "section": "Сборка",
+      "released": 121,
+      "defects": 1,
+      "stated_defect_pct": 0.8
+    },
+    {
+      "date": "2026-10-02",
+      "section": "Сварка",
+      "released": 111,
+      "defects": 3,
+      "stated_defect_pct": 2.7
+    },
+    {
+      "date": "2026-10-02",
+      "section": "Окраска",
+      "released": 116,
+      "defects": 6,
+      "stated_defect_pct": 5.2
+    },
+    {
+      "date": "2026-10-02",
+      "section": "Сборка",
+      "released": 119,
+      "defects": 2,
+      "stated_defect_pct": 1.7
+    }
+  ],
+  "targets": {
+    "shifts_per_day": 2,
+    "shift_hours": 8,
+    "oee_target_pct": 85,
+    "defect_limit_pct": 2,
+    "critical_downtime_limit_min_per_day": 60,
+    "monthly_output_min": 5500
+  }
+}

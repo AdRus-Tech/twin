@@ -1,0 +1,91 @@
+# Автопроверка при каждом пуше и пулл-реквесте: тесты бэкенда, тесты и сборка фронтенда,
+# сквозные проверки в браузере (Playwright) и сборка Docker-образа.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  backend:
+    name: Тесты бэкенда (Django, ML)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - run: pip install -r requirements.txt
+      - run: python manage.py check
+      - run: python manage.py test --verbosity 2
+
+  frontend:
+    name: Тесты и сборка фронтенда (Vue, three.js)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+
+  e2e:
+    name: Сквозные проверки в браузере (Playwright)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: pip install -r backend/requirements.txt
+      - name: Сборка фронтенда
+        working-directory: frontend
+        run: npm ci && npm run build
+      - name: Запуск сервера (SQLite, ИИ — демо-провайдер)
+        working-directory: backend
+        run: |
+          python manage.py migrate --noinput
+          nohup python manage.py runserver 127.0.0.1:8000 --noreload > ../server.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf -o /dev/null http://127.0.0.1:8000/api/plan/month/ && exit 0; sleep 2; done
+          cat ../server.log; exit 1
+      - name: Браузер для Playwright
+        working-directory: frontend
+        run: npx playwright install --with-deps chromium
+      - name: Сквозные проверки
+        working-directory: frontend
+        run: npm run e2e
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            frontend/playwright-report
+            frontend/test-results
+            server.log
+          retention-days: 7
+
+  docker:
+    name: Сборка Docker-образа
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t line-model .

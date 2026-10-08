@@ -1,0 +1,4 @@
+# Зависимости для запуска в Docker: всё из requirements.txt + драйвер PostgreSQL и сервер.
+-r requirements.txt
+psycopg[binary]>=3.2,<3.3
+gunicorn>=23,<24

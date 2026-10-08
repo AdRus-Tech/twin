@@ -1,0 +1,83 @@
+{
+ "kind": "simulation",
+ "target": 5500,
+ "shifts_per_day": 2,
+ "plan_per_shift": 120,
+ "base_shift": 122,
+ "horizon_min": 480,
+ "events_per_shift": 1.0,
+ "events_source": "демонстрационный журнал простоев: 4 записи за 2 дня",
+ "events": [
+  {
+   "equipment": "ABB-01",
+   "station": "welding",
+   "station_name": "Сварка",
+   "reason": "Ошибка датчика",
+   "duration_min": 25,
+   "rec_duration_min": 10,
+   "rec_text": "запасной датчик у линии",
+   "loss_none": 0.0,
+   "loss_rec": 0.0,
+   "idle_none": 22.0,
+   "idle_rec": 7.3
+  },
+  {
+   "equipment": "Камера-02",
+   "station": "painting",
+   "station_name": "Окраска",
+   "reason": "Замена фильтра",
+   "duration_min": 40,
+   "rec_duration_min": 15,
+   "rec_text": "плановая замена по предупреждению ML",
+   "loss_none": 4.0,
+   "loss_rec": 0.0,
+   "idle_none": 31.3,
+   "idle_rec": -1.52
+  },
+  {
+   "equipment": "Конвейер-03",
+   "station": "assembly",
+   "station_name": "Сборка",
+   "reason": "Обрыв цепи",
+   "duration_min": 55,
+   "rec_duration_min": 20,
+   "rec_text": "плановая замена цепи по предупреждению ML",
+   "loss_none": 14.0,
+   "loss_rec": 5.0,
+   "idle_none": 78.3,
+   "idle_rec": 19.2
+  },
+  {
+   "equipment": "ABB-04",
+   "station": "welding",
+   "station_name": "Сварка",
+   "reason": "Плановое ТО",
+   "duration_min": 30,
+   "rec_duration_min": 0,
+   "rec_text": "ТО на пересменке",
+   "loss_none": 0.4,
+   "loss_rec": 0.0,
+   "idle_none": 28.72,
+   "idle_rec": 0.0
+  }
+ ],
+ "bottleneck": {
+  "id": "assembly",
+  "name": "Сборка",
+  "cycle_s": 235
+ },
+ "models": [
+  {
+   "model": "Chevrolet Onix",
+   "units": 2500
+  },
+  {
+   "model": "Chevrolet Cobalt",
+   "units": 1800
+  },
+  {
+   "model": "JAC J7",
+   "units": 500
+  }
+ ]
+}
